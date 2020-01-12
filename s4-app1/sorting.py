@@ -163,7 +163,6 @@ def main():
     # markov(sorted_list, 10)
 
     list_bigram = [{"allo toi": 2}, {"bye bye": 4}, {"chow bye": 1}, {"ala 2": 6}, {"bill nye": 5}, {"chien chaud": 3}]
-    get_graph_from_bigram(list_bigram)
 
 
 if __name__ == "__main__":

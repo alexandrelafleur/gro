@@ -1,18 +1,21 @@
 import random
 
 
+class Node:
+    def __init__(self, word, prob):
+        self.word = word
+        self.probability = prob
+
+
 def get_markov_from_unigram(gram_list, length):
     text = ""
 
     for i in range(length):
         prob = random.random()
-        # print("prob =", prob)
         prob_tot = 0
         for j in range(len(gram_list)):
             gram = next(iter(gram_list[j]))
-            # print("gram =", gram)
             prob_tot += gram_list[j][gram]
-            # print("prob_tot=", prob_tot)
             if prob_tot > prob:
                 text += gram + " "
                 break
@@ -20,20 +23,14 @@ def get_markov_from_unigram(gram_list, length):
     return text
 
 
-class Node:
-    def __init__(self, word, prob):
-        self.word = word
-        self.probability = prob
-
-
 def get_graph_from_bigram(bigram_list):
     graph_dict = {}
     for bigram_dict in bigram_list:
-        bigram = next(iter(bigram_dict))
-        first_word = bigram.split()[0]
-        second_word = bigram.split()[1]
-        # print(bigram)
-        node = Node(second_word, bigram_dict[bigram])
+        bigram_key = next(iter(bigram_dict))
+        first_word = bigram_key.split()[0]
+        second_word = bigram_key.split()[1]
+        # print(bigram_key)
+        node = Node(second_word, bigram_dict[bigram_key])
         # print(node.probability)
         if first_word not in graph_dict.keys():
             graph_dict[first_word] = [node]
@@ -54,9 +51,9 @@ def get_graph_from_bigram(bigram_list):
 
 def get_markov_from_bigram_graph(graph_dict, length):
     text = ""
-    first_word = next(iter(graph_dict))
+    first_word_key = next(iter(graph_dict))
 
-    next_word = first_word
+    next_word = first_word_key
     for i in range(length):
         word_list = graph_dict[next_word]
         prob = random.random()

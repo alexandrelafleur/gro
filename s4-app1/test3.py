@@ -128,15 +128,16 @@ def get_distance_between_n_gram(sm_gram, xl_gram):
         if word in xl_gram.keys():
             common_words += 1
             xl_value = xl_gram[word]
-        distance = pow(sm_gram[key] - xl_value, 2)
-    print("common_words = ", common_words)
-    return math.sqrt(distance)
+            #print(sm_gram[key] , " ", xl_value)
+        distance += abs(sm_gram[key] - xl_value) / (sm_gram[key] + xl_value)
+    #print("common_words = ", common_words)
+    return distance / common_words
 
 
 def main():
-    path = "C:/Users/User/Documents/GRO/S4/APP1//sorted"
-    init_path = "C:/Users/User/Documents/GRO/S4/APP1/TextesPourEtudiants"
-    validation_path = "C:/Users/User/Documents/GRO/S4/APP1/TextesPourAutoValidation"
+    path = "./sorted"
+    init_path = "./TextesPourEtudiants"
+    validation_path = "./TextesPourAutoValidation"
 
     # ------------------ authors --------------------------
     print("---------------------parsing mystery texts")
@@ -147,24 +148,32 @@ def main():
     author_list = []
     scrape_folder(path, author_list)
 
-    print("---------------------markov chain")
-    for author in author_list:
-        print(author.name, " ----")
-        print("markov unigram")
-        text = get_markov_from_unigram(author.unigram_sorted, 20)
-        print(text)
-        print("markov bigram")
-        graph = get_graph_from_bigram(author.bigram_sorted)
-        text = get_markov_from_bigram_graph(graph, 20)
-        print(text)
+    # print("---------------------markov chain")
+    # for author in author_list:
+    #     print(author.name, " ----")
+    #     print("markov unigram")
+    #     text = get_markov_from_unigram(author.unigram_sorted, 20)
+    #     print(text)
+    #     print("markov bigram")
+    #     graph = get_graph_from_bigram(author.bigram_sorted)
+    #     text = get_markov_from_bigram_graph(graph, 20)
+    #     print(text)
 
-    # for i in range(len(mystery_author_list)):
-    #     print("finding author of mystery text", i)
-    #     print("small dict length =", len(mystery_author_list[i].unigram_dict))
-    #     for author in author_list:
-    #         print(author.name, " ----")
-    #         print(get_distance_between_n_gram(mystery_author_list[i].unigram_dict, author.unigram_dict))
+    for i in range(len(mystery_author_list)):
+        print("finding author of mystery text", mystery_author_list[i].name)
+        #print("small dict length =", len(mystery_author_list[i].unigram_dict))
+        minimum = 10000000000
+        mystery_author = "???"
+        for author in author_list:
 
+            distance = get_distance_between_n_gram(mystery_author_list[i].unigram_dict, author.unigram_dict)
+            # print(author.name, " ----")
+            # print(distance)
+            if distance < minimum:
+                minimum = distance
+                mystery_author = author.name
+        print(mystery_author)
+        print(minimum)
 
 if __name__ == "__main__":
     main()
