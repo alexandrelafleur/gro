@@ -1,4 +1,5 @@
 import time
+import random
 
 
 def merge_sort_dict_old(list_init):
@@ -137,14 +138,33 @@ def get_n_gram_from_word_list(word_list, n, gram_dict):
             gram_dict[gram] += 1
 
 
-if __name__ == "__main__":
-    # mots = [{"allo": 2}, {"bye": 4}, {"chow": 1}, {"ala": 6}, {"nye": 5}, {"chaud": 3}]
+def main():
+    mots = [{"allo": 2}, {"bye": 4}, {"chow": 1}, {"ala": 6}, {"nye": 5}, {"chaud": 3}]
+    total = 0
+    for gram in mots:
+        total += gram[next(iter(gram))]
+    print(total)
+    for gram in mots:
+        gram[next(iter(gram))] /= total
+    total = 0
+    for gram in mots:
+        total += gram[next(iter(gram))]
+    print(total)
+
     # mots = quick_sort_dict(mots)
     # print(mots)
     # list_init = [3, 1, 2, 6, 5, 4]
-    # print(merge_sort_dict(mots))
-    word_list = ["allo", "bye", "fuck", "toi", "rue"]
-    gram_dict = {}
-    get_n_gram_from_word_list(word_list, 2, gram_dict)
-    for gram in gram_dict:
-        print(gram)
+    sorted_list = (merge_sort_dict(mots))
+    # word_list = ["allo", "bye", "fuck", "toi", "rue"]
+    # gram_dict = {}
+    # get_n_gram_from_word_list(word_list, 2, gram_dict)
+    # for gram in gram_dict:
+    #     print(gram)
+    # markov(sorted_list, 10)
+
+    list_bigram = [{"allo toi": 2}, {"bye bye": 4}, {"chow bye": 1}, {"ala 2": 6}, {"bill nye": 5}, {"chien chaud": 3}]
+    get_graph_from_bigram(list_bigram)
+
+
+if __name__ == "__main__":
+    main()

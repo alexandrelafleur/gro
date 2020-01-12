@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72200db0-6119-418d-ad0a-2f494fd2dc24" name="Default Changelist" comment="" />
+    <list default="true" id="7ed2dcfb-8aa4-4e66-9289-0b15b11b4c49" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="1WDbuEB1zJGD8B00vE01tN2qPoF" />
+  <component name="FavoritesManager">
+    <favorites_list name="s4_app1" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1W1XBONVnEaqdBTOliaWC3USmWz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -15,15 +25,75 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TextesPourAutoValidation" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="test3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="s4-app1" />
+  <component name="RunManager" selected="Python.test3">
+    <configuration name="lab" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="s4_app1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sorting" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="s4_app1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sorting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="s4_app1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="s4_app1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -43,9 +113,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test32" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="s4_app1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Documents/GRO/S4/APP1" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Documents/GRO/S4/APP1/test32.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.test3" />
+        <item itemvalue="Python.test32" />
+        <item itemvalue="Python.sorting" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.lab" />
       </list>
     </recent_temporary>
   </component>
@@ -66,38 +161,50 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="72200db0-6119-418d-ad0a-2f494fd2dc24" name="Default Changelist" comment="" />
-      <created>1578687333179</created>
+      <changelist id="7ed2dcfb-8aa4-4e66-9289-0b15b11b4c49" name="Default Changelist" comment="" />
+      <created>1578317938381</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1578687333179</updated>
+      <updated>1578317938381</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="455" height="976" key="GridCell.Tab.0.bottom" timestamp="1578781755948">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="225" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578325304605">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="455" height="896" key="GridCell.Tab.0.bottom/0.23.1792.1017@0.23.1792.1017" timestamp="1578688867878" />
-    <state width="455" height="976" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1578781755948" />
-    <state width="455" height="976" key="GridCell.Tab.0.center" timestamp="1578781755948">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="225" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1578325304605" />
+    <state x="533" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578317997138">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="455" height="896" key="GridCell.Tab.0.center/0.23.1792.1017@0.23.1792.1017" timestamp="1578688867877" />
-    <state width="455" height="976" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1578781755948" />
-    <state width="455" height="976" key="GridCell.Tab.0.left" timestamp="1578781755947">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="533" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1578317997138" />
+    <state width="506" height="697" key="GridCell.Tab.0.bottom" timestamp="1578863233806">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="455" height="896" key="GridCell.Tab.0.left/0.23.1792.1017@0.23.1792.1017" timestamp="1578688867877" />
-    <state width="455" height="976" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1578781755947" />
-    <state width="455" height="976" key="GridCell.Tab.0.right" timestamp="1578781755948">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="506" height="697" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1578863233806" />
+    <state width="506" height="697" key="GridCell.Tab.0.center" timestamp="1578863233806">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="455" height="896" key="GridCell.Tab.0.right/0.23.1792.1017@0.23.1792.1017" timestamp="1578688867878" />
-    <state width="455" height="976" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1578781755948" />
-    <state x="658" y="169" key="refactoring.ChangeSignatureDialog" timestamp="1578691254337">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="506" height="697" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1578863233806" />
+    <state width="506" height="697" key="GridCell.Tab.0.left" timestamp="1578863233806">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="658" y="169" key="refactoring.ChangeSignatureDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1578691254337" />
+    <state width="506" height="697" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1578863233806" />
+    <state width="506" height="697" key="GridCell.Tab.0.right" timestamp="1578863233806">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="506" height="697" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1578863233806" />
+    <state x="279" y="55" key="SettingsEditor" timestamp="1578774844505">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="279" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1578774844505" />
+    <state x="397" y="0" width="742" height="824" key="find.popup" timestamp="1578412195886">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="397" y="0" width="742" height="824" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1578412195886" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1578428916141">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1578428916141" />
   </component>
 </project>

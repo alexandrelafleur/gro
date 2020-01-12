@@ -4,6 +4,7 @@ import time
 import codecs
 import math
 from sorting import quick_sort_dict, merge_sort_dict
+from markov import get_graph_from_bigram, get_markov_from_bigram_graph, get_markov_from_unigram
 
 
 class Author:
@@ -15,7 +16,7 @@ class Author:
         self.bigram_sorted = bigram_sorted
 
 
-def scrape_folder_init(path, author_list):
+def scrape_folder_init(path, author_list, save_to_txt):
     for author in os.listdir(path):
         if author != ".DS_Store":
             tm = time.time()
@@ -43,25 +44,26 @@ def scrape_folder_init(path, author_list):
                     unsorted_gram.append({key: gram_dict_list[i][key]})
                 sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
 
-            for i in range(10):
-                print(sorted_gram_list[1][i])
-
             print(time.time() - tm)
 
-            with codecs.open("./sorted/" + author + "/unigram_sorted.txt", "w+", encoding="utf-8", errors="ignore") as f:
-                for dict in sorted_gram_list[1]:
-                    key = next(iter(dict))
-                    f.write(key + " " + str(dict[key]))
-                    f.write("\n")
+            if save_to_txt:
+                with codecs.open("./sorted/" + author + "/unigram_sorted.txt", "w+", encoding="utf-8",
+                                 errors="ignore") as f:
+                    for dict in sorted_gram_list[1]:
+                        key = next(iter(dict))
+                        f.write(key + " " + str(dict[key]))
+                        f.write("\n")
 
-            with codecs.open("./sorted/" + author + "/bigram_sorted.txt", "w+", encoding="utf-8", errors="ignore") as f:
-                for dict in sorted_gram_list[2]:
-                    key = next(iter(dict))
-                    f.write(key + " " + str(dict[key]))
-                    f.write("\n")
+                with codecs.open("./sorted/" + author + "/bigram_sorted.txt", "w+", encoding="utf-8",
+                                 errors="ignore") as f:
+                    for dict in sorted_gram_list[2]:
+                        key = next(iter(dict))
+                        f.write(key + " " + str(dict[key]))
+                        f.write("\n")
 
             author_list.append(
                 Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
+
 
 def scrape_folder(path, author_list):
     for author in os.listdir(path):
@@ -72,15 +74,16 @@ def scrape_folder(path, author_list):
             gram_dict_list = [None, {}, {}]
             sorted_gram_list = [None, [], []]
             sorted_gram_list[1] = read_from_sorted_list(author_path + "/unigram_sorted.txt")
+            for dict in sorted_gram_list[1]:
+                gram_dict_list[1].update(dict)
             sorted_gram_list[2] = read_from_sorted_list(author_path + "/bigram_sorted.txt")
-
-            for i in range(10):
-                print(sorted_gram_list[1][i])
-
+            for dict in sorted_gram_list[2]:
+                gram_dict_list[2].update(dict)
             print(time.time() - tm)
 
             author_list.append(
                 Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
+
 
 def read_from_sorted_list(path):
     sorted_list = []
@@ -88,11 +91,12 @@ def read_from_sorted_list(path):
         for line in f:
             words = line.split()
             if len(words) > 2:
-                sorted_list.append({words[0] + " " + words[1]: words[2]})
+                sorted_list.append({words[0] + " " + words[1]: float(words[2])})
             else:
-                sorted_list.append({words[0]: words[1]})
+                sorted_list.append({words[0]: float(words[1])})
 
     return sorted_list
+
 
 def read_word_list_from_text(path):
     word_list = []
@@ -117,28 +121,49 @@ def get_n_gram_from_word_list(word_list, n, gram_dict):
 
 def get_distance_between_n_gram(sm_gram, xl_gram):
     distance = 0
+    common_words = 0
     for key in sm_gram:
+        word = key.rstrip()
         xl_value = 0
-        if key in xl_gram.keys():
-            xl_value = xl_gram[key]
+        if word in xl_gram.keys():
+            common_words += 1
+            xl_value = xl_gram[word]
         distance = pow(sm_gram[key] - xl_value, 2)
+    print("common_words = ", common_words)
     return math.sqrt(distance)
 
 
 def main():
-    path = "./sorted"
-    validation_path = "./TextesPourAutoValidation"
+    path = "C:/Users/User/Documents/GRO/S4/APP1//sorted"
+    init_path = "C:/Users/User/Documents/GRO/S4/APP1/TextesPourEtudiants"
+    validation_path = "C:/Users/User/Documents/GRO/S4/APP1/TextesPourAutoValidation"
 
     # ------------------ authors --------------------------
-    # mystery_author_list = []
-    # scrape_folder_init(validation_path, mystery_author_list)
+    print("---------------------parsing mystery texts")
+    mystery_author_list = []
+    scrape_folder_init(validation_path, mystery_author_list, False)
 
+    print("-------------------parsing author texts")
     author_list = []
     scrape_folder(path, author_list)
 
+    print("---------------------markov chain")
     for author in author_list:
-        print(author.name)
-        # print(get_distance_between_n_gram(mystery_author_list[0].unigram_dict, author.unigram_dict))
+        print(author.name, " ----")
+        print("markov unigram")
+        text = get_markov_from_unigram(author.unigram_sorted, 20)
+        print(text)
+        print("markov bigram")
+        graph = get_graph_from_bigram(author.bigram_sorted)
+        text = get_markov_from_bigram_graph(graph, 20)
+        print(text)
+
+    # for i in range(len(mystery_author_list)):
+    #     print("finding author of mystery text", i)
+    #     print("small dict length =", len(mystery_author_list[i].unigram_dict))
+    #     for author in author_list:
+    #         print(author.name, " ----")
+    #         print(get_distance_between_n_gram(mystery_author_list[i].unigram_dict, author.unigram_dict))
 
 
 if __name__ == "__main__":
