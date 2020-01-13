@@ -4,6 +4,8 @@ import time
 
 from sorting import merge_sort_dict
 
+PONC = ["!", '"', "'", ")", "(", ",", ".", ";", ":", "?", "-", "_"]
+
 
 class Author:
     def __init__(self, name, unigram_dict, unigram_sorted, bigram_dict, bigram_sorted):
@@ -14,7 +16,7 @@ class Author:
         self.bigram_sorted = bigram_sorted
 
 
-def scrape_folder_init(path, author_list, save_to_txt):
+def scrape_folder_init(path, author_list, save_to_txt, remove_ponc):
     for author in os.listdir(path):
         if author != ".DS_Store":
             tm = time.time()
@@ -27,7 +29,7 @@ def scrape_folder_init(path, author_list, save_to_txt):
                 if text != ".DS_Store":
                     print(text)
                     text_path = author_path + "/" + text
-                    word_list = read_word_list_from_text(text_path)
+                    word_list = read_word_list_from_text(text_path, remove_ponc)
                     word_count += len(word_list)
 
                     for i in range(1, 3):
@@ -41,8 +43,6 @@ def scrape_folder_init(path, author_list, save_to_txt):
                     gram_dict_list[i][key] *= inv_word_count
                     unsorted_gram.append({key: gram_dict_list[i][key]})
                 sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
-
-            print(time.time() - tm)
 
             if save_to_txt:
                 with codecs.open("./sorted/" + author + "/unigram_sorted.txt", "w+", encoding="utf-8",
@@ -63,11 +63,10 @@ def scrape_folder_init(path, author_list, save_to_txt):
                 Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
 
 
-def scrape_author_folder(path, save_to_txt):
+def scrape_author_folder(path, save_to_txt, remove_ponc):
     author_list = []
     for author in os.listdir(path):
         if author != ".DS_Store":
-            tm = time.time()
             print(author)
             author_path = path + "/" + author
             gram_dict_list = [None, {}, {}]
@@ -77,7 +76,7 @@ def scrape_author_folder(path, save_to_txt):
                 if text != ".DS_Store":
                     print(text)
                     text_path = author_path + "/" + text
-                    word_list = read_word_list_from_text(text_path)
+                    word_list = read_word_list_from_text(text_path, remove_ponc)
                     word_count += len(word_list)
 
                     for i in range(1, 3):
@@ -91,8 +90,6 @@ def scrape_author_folder(path, save_to_txt):
                     gram_dict_list[i][key] *= inv_word_count
                     unsorted_gram.append({key: gram_dict_list[i][key]})
                 sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
-
-            print(time.time() - tm)
 
             if save_to_txt:
                 with codecs.open("./sorted/" + author + "/unigram_sorted.txt", "w+", encoding="utf-8",
@@ -114,7 +111,7 @@ def scrape_author_folder(path, save_to_txt):
     return author_list
 
 
-def scrape_single_author(path, author_name):
+def scrape_single_author(path, author_name, remove_ponc):
     author_path = path + "/" + author_name
     gram_dict_list = [None, {}, {}]
     sorted_gram_list = [None, [], []]
@@ -123,7 +120,7 @@ def scrape_single_author(path, author_name):
         if text != ".DS_Store":
             print(text)
             text_path = author_path + "/" + text
-            word_list = read_word_list_from_text(text_path)
+            word_list = read_word_list_from_text(text_path, remove_ponc)
             word_count += len(word_list)
 
             for i in range(1, 3):
@@ -141,12 +138,12 @@ def scrape_single_author(path, author_name):
     return [Author(author_name, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2])]
 
 
-def scrape_mystery_file_old(path):
+def scrape_mystery_file_old(path, remove_ponc):
     gram_dict_list = [None, {}, {}]
     sorted_gram_list = [None, [], []]
     word_count = 0
 
-    word_list = read_word_list_from_text(path)
+    word_list = read_word_list_from_text(path, remove_ponc)
     word_count += len(word_list)
 
     for i in range(1, 3):
@@ -164,11 +161,11 @@ def scrape_mystery_file_old(path):
     return Author("Mystery", gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2])
 
 
-def scrape_mystery_file(path):
+def scrape_mystery_file(path, remove_ponc):
     gram_dict_list = [{}, {}]
     sorted_gram_list = [[], []]
 
-    word_list = read_word_list_from_text(path)
+    word_list = read_word_list_from_text(path, remove_ponc)
     word_count = len(word_list)
 
     get_n_gram_from_word_list(word_list, 1, gram_dict_list[0])
@@ -189,7 +186,6 @@ def scrape_mystery_file(path):
 def scrape_folder(path, author_list):
     for author in os.listdir(path):
         if author != ".DS_Store":
-            tm = time.time()
             print(author)
             author_path = path + "/" + author
             gram_dict_list = [None, {}, {}]
@@ -200,7 +196,6 @@ def scrape_folder(path, author_list):
             sorted_gram_list[2] = read_from_sorted_list(author_path + "/bigram_sorted.txt")
             for dict in sorted_gram_list[2]:
                 gram_dict_list[2].update(dict)
-            print(time.time() - tm)
 
             author_list.append(
                 Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
@@ -219,13 +214,20 @@ def read_from_sorted_list(path):
     return sorted_list
 
 
-def read_word_list_from_text(path):
+def read_word_list_from_text(path, remove_ponc):
     word_list = []
     with codecs.open(path, "r", encoding="utf-8", errors="ignore") as f:
         for line in f:
             for word in line.split():
                 word = word.lower()
-                word_list.append(word)
+                if remove_ponc:
+                    remixed_word = ""
+                    for letter in word:
+                        if letter not in PONC:
+                            remixed_word += letter
+                else:
+                    remixed_word = word
+                word_list.append(remixed_word)
     return word_list
 
 
