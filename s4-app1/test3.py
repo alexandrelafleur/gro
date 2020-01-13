@@ -1,10 +1,8 @@
-import copy
+import codecs
 import os
 import time
-import codecs
-import math
-from sorting import quick_sort_dict, merge_sort_dict
-from markov import get_graph_from_bigram, get_markov_from_bigram_graph, get_markov_from_unigram
+
+from sorting import merge_sort_dict
 
 
 class Author:
@@ -65,6 +63,129 @@ def scrape_folder_init(path, author_list, save_to_txt):
                 Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
 
 
+def scrape_author_folder(path, save_to_txt):
+    author_list = []
+    for author in os.listdir(path):
+        if author != ".DS_Store":
+            tm = time.time()
+            print(author)
+            author_path = path + "/" + author
+            gram_dict_list = [None, {}, {}]
+            sorted_gram_list = [None, [], []]
+            word_count = 0
+            for text in os.listdir(author_path):
+                if text != ".DS_Store":
+                    print(text)
+                    text_path = author_path + "/" + text
+                    word_list = read_word_list_from_text(text_path)
+                    word_count += len(word_list)
+
+                    for i in range(1, 3):
+                        get_n_gram_from_word_list(word_list, i, gram_dict_list[i])
+
+            inv_word_count = 1 / word_count
+            for i in range(1, 3):
+
+                unsorted_gram = []
+                for key in gram_dict_list[i]:
+                    gram_dict_list[i][key] *= inv_word_count
+                    unsorted_gram.append({key: gram_dict_list[i][key]})
+                sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
+
+            print(time.time() - tm)
+
+            if save_to_txt:
+                with codecs.open("./sorted/" + author + "/unigram_sorted.txt", "w+", encoding="utf-8",
+                                 errors="ignore") as f:
+                    for dict in sorted_gram_list[1]:
+                        key = next(iter(dict))
+                        f.write(key + " " + str(dict[key]))
+                        f.write("\n")
+
+                with codecs.open("./sorted/" + author + "/bigram_sorted.txt", "w+", encoding="utf-8",
+                                 errors="ignore") as f:
+                    for dict in sorted_gram_list[2]:
+                        key = next(iter(dict))
+                        f.write(key + " " + str(dict[key]))
+                        f.write("\n")
+
+            author_list.append(
+                Author(author, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2]))
+    return author_list
+
+
+def scrape_single_author(path, author_name):
+    author_path = path + "/" + author_name
+    gram_dict_list = [None, {}, {}]
+    sorted_gram_list = [None, [], []]
+    word_count = 0
+    for text in os.listdir(author_path):
+        if text != ".DS_Store":
+            print(text)
+            text_path = author_path + "/" + text
+            word_list = read_word_list_from_text(text_path)
+            word_count += len(word_list)
+
+            for i in range(1, 3):
+                get_n_gram_from_word_list(word_list, i, gram_dict_list[i])
+
+    inv_word_count = 1 / word_count
+    for i in range(1, 3):
+
+        unsorted_gram = []
+        for key in gram_dict_list[i]:
+            gram_dict_list[i][key] *= inv_word_count
+            unsorted_gram.append({key: gram_dict_list[i][key]})
+        sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
+
+    return [Author(author_name, gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2])]
+
+
+def scrape_mystery_file_old(path):
+    gram_dict_list = [None, {}, {}]
+    sorted_gram_list = [None, [], []]
+    word_count = 0
+
+    word_list = read_word_list_from_text(path)
+    word_count += len(word_list)
+
+    for i in range(1, 3):
+        get_n_gram_from_word_list(word_list, i, gram_dict_list[i])
+
+    inv_word_count = 1 / word_count
+    for i in range(1, 3):
+
+        unsorted_gram = []
+        for key in gram_dict_list[i]:
+            gram_dict_list[i][key] *= inv_word_count
+            unsorted_gram.append({key: gram_dict_list[i][key]})
+        sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
+
+    return Author("Mystery", gram_dict_list[1], sorted_gram_list[1], gram_dict_list[2], sorted_gram_list[2])
+
+
+def scrape_mystery_file(path):
+    gram_dict_list = [{}, {}]
+    sorted_gram_list = [[], []]
+
+    word_list = read_word_list_from_text(path)
+    word_count = len(word_list)
+
+    get_n_gram_from_word_list(word_list, 1, gram_dict_list[0])
+    get_n_gram_from_word_list(word_list, 2, gram_dict_list[1])
+
+    inv_word_count = 1 / word_count
+    for i in range(0, 2):
+
+        unsorted_gram = []
+        for key in gram_dict_list[i]:
+            gram_dict_list[i][key] *= inv_word_count
+            unsorted_gram.append({key: gram_dict_list[i][key]})
+        sorted_gram_list[i] = merge_sort_dict(unsorted_gram)
+
+    return Author("Mystery", gram_dict_list[0], sorted_gram_list[0], gram_dict_list[1], sorted_gram_list[1])
+
+
 def scrape_folder(path, author_list):
     for author in os.listdir(path):
         if author != ".DS_Store":
@@ -123,14 +244,14 @@ def get_distance_between_n_gram(sm_gram, xl_gram):
     distance = 0
     common_words = 0
     for key in sm_gram:
-        word = key.rstrip()
+        word = key
         xl_value = 0
         if word in xl_gram.keys():
             common_words += 1
             xl_value = xl_gram[word]
-            #print(sm_gram[key] , " ", xl_value)
+            # print(sm_gram[key] , " ", xl_value)
         distance += abs(sm_gram[key] - xl_value) / (sm_gram[key] + xl_value)
-    #print("common_words = ", common_words)
+    # print("common_words = ", common_words)
     return distance / common_words
 
 
@@ -161,7 +282,7 @@ def main():
 
     for i in range(len(mystery_author_list)):
         print("finding author of mystery text", mystery_author_list[i].name)
-        #print("small dict length =", len(mystery_author_list[i].unigram_dict))
+        # print("small dict length =", len(mystery_author_list[i].unigram_dict))
         minimum = 10000000000
         mystery_author = "???"
         for author in author_list:
@@ -174,6 +295,7 @@ def main():
                 mystery_author = author.name
         print(mystery_author)
         print(minimum)
+
 
 if __name__ == "__main__":
     main()

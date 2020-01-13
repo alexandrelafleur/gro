@@ -7,9 +7,9 @@ class Node:
         self.probability = prob
 
 
-def get_markov_from_unigram(gram_list, length):
-    text = ""
-
+def get_markov_from_unigram(author, length):
+    text = author.name + " :: Debut:"
+    gram_list = author.unigram_sorted
     for i in range(length):
         prob = random.random()
         prob_tot = 0
@@ -20,7 +20,7 @@ def get_markov_from_unigram(gram_list, length):
                 text += gram + " "
                 break
 
-    return text
+    return text + author.name + " :: Fin"
 
 
 def get_graph_from_bigram(bigram_list):
@@ -49,8 +49,9 @@ def get_graph_from_bigram(bigram_list):
     return graph_dict
 
 
-def get_markov_from_bigram_graph(graph_dict, length):
-    text = ""
+def get_markov_from_bigram_graph(author, length):
+    text = author.name + " :: Debut:"
+    graph_dict = get_graph_from_bigram(author.bigram_sorted)
     first_word_key = next(iter(graph_dict))
 
     next_word = first_word_key
@@ -65,4 +66,4 @@ def get_markov_from_bigram_graph(graph_dict, length):
                 next_word = node.word
                 break
 
-    return text
+    return text + author.name + " :: Fin"
