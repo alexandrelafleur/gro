@@ -271,17 +271,6 @@ def main():
     author_list = []
     scrape_folder(path, author_list)
 
-    # print("---------------------markov chain")
-    # for author in author_list:
-    #     print(author.name, " ----")
-    #     print("markov unigram")
-    #     text = get_markov_from_unigram(author.unigram_sorted, 20)
-    #     print(text)
-    #     print("markov bigram")
-    #     graph = get_graph_from_bigram(author.bigram_sorted)
-    #     text = get_markov_from_bigram_graph(graph, 20)
-    #     print(text)
-
     for i in range(len(mystery_author_list)):
         print("finding author of mystery text", mystery_author_list[i].name)
         # print("small dict length =", len(mystery_author_list[i].unigram_dict))
