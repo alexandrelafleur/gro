@@ -1,3 +1,6 @@
+# Alexandre Lafleur - Lafa3307 - T4
+# Philippe Turcotte - Turp2707 - T1
+
 import argparse
 import codecs
 import glob
@@ -310,7 +313,7 @@ def get_markov_from_unigram(author, length):
     text = author.name + " :: Debut:"
     gram_list = author.unigram_sorted
     for i in range(length):
-        prob = random.random()
+        prob = random()
         prob_tot = 0
         for j in range(len(gram_list)):
             gram = next(iter(gram_list[j]))
@@ -354,7 +357,7 @@ def get_markov_from_bigram_graph(author, length):
     next_word = first_word_key
     for i in range(length):
         word_list = graph_dict[next_word]
-        prob = random.random()
+        prob = random()
         prob_tot = 0
         for node in word_list:
             prob_tot += node.probability
