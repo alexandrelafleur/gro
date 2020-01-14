@@ -394,7 +394,6 @@ def main():
         remove_ponc = True
     else:
         remove_ponc = False
-    print(remove_ponc)
     if args.v:
         print("Mode verbose:")
         print("Calcul avec les auteurs du repertoire: " + args.d)
@@ -482,16 +481,12 @@ def main():
             print(author.name)
             if use_unigrams:
                 if list_index < len(author.unigram_sorted):
-                    for i in range(list_index):
-                        print(author.unigram_sorted[i])
-                    # print(author.unigram_sorted[list_index])
+                    print(author.unigram_sorted[list_index])
                 else:
                     print("index is way too high you need to cut it")
             else:
                 if list_index < len(author.bigram_sorted):
-                    for i in range(list_index):
-                        print(author.bigram_sorted[i])
-                    # print(author.bigram_sorted[list_index])
+                    print(author.bigram_sorted[list_index])
                 else:
                     print("index is way too high you need to cut it")
 
