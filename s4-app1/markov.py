@@ -461,7 +461,6 @@ def main():
         generate_text_markov = True
         markov_length = args.G
 
-
     if analyse_all_authors:
         author_list = scrape_author_folder(author_path, False, remove_ponc)
     else:
@@ -480,14 +479,19 @@ def main():
 
     if print_n_element_in_list:
         for author in author_list:
+            print(author.name)
             if use_unigrams:
                 if list_index < len(author.unigram_sorted):
-                    print(author.unigram_sorted[list_index])
+                    for i in range(list_index):
+                        print(author.unigram_sorted[i])
+                    # print(author.unigram_sorted[list_index])
                 else:
                     print("index is way too high you need to cut it")
             else:
                 if list_index < len(author.bigram_sorted):
-                    print(author.bigram_sorted[list_index])
+                    for i in range(list_index):
+                        print(author.bigram_sorted[i])
+                    # print(author.bigram_sorted[list_index])
                 else:
                     print("index is way too high you need to cut it")
 
