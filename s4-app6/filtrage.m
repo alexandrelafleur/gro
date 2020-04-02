@@ -61,3 +61,5 @@ xlabel('Temps (s)')
 ylabel('Signal (V)')
 figure(2);
 plot(t,xs,'b');
+xlabel('Temps (s)')
+ylabel('Signal (V)')
