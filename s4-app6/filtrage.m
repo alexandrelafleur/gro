@@ -1,5 +1,9 @@
-%% P1
-f = pi/2;
+clc
+clear
+close all;
+%% Définition du filtre
+
+f = pi/4;
 q = 0.99;
 fb = q + (q / (1-f));
 N = 1000;
@@ -9,9 +13,9 @@ a = [1, -(2 - 2*f + f*fb - f^2*fb), 1 - 2*f + f*fb + f^2 - f^2*fb];
 w = linspace(0,pi,N);
 
 figure(7);
-freqz(a,b,w)
+freqz(b,a,w)
 figure(8);
-zplane(a,b)
+zplane(b,a)
 
 %% Génération du signal d'entrée
 
@@ -26,47 +30,34 @@ ys = zeros(size(xs));
 % Ici vous pouvez définir des variables
 y_old = zeros(1,2);
 
+%% Application du filtre
 % Ceci est la boucle de calcul où chaque échantillon est traité
 % individuellement
 
 for n = 1:1:N
-  
   % Charger l'échantillon
   x = xs(n);
   
-  % Do your thing
+  % Calcul de la réponse
   y =  b(1)*x - a(2)*y_old(1) - a(3)*y_old(2);
-  
-
   
   %Offset saved y values
   for i = length(y_old) : -1 : 2
       y_old(i) = y_old(i-1);
   end
-  y_old(1) = y
+  y_old(1) = y;
  
   % Sauvegarder l'échantillon traité
   ys(n) = y;
   
 end
 
+%% Affichage
+
 % Afficher les signaux d'entrée et de sorties
 figure(1);
-plot(t,xs,'b',t,ys,'r');
-
-
-
-
-%   % Copie de la mémoire
-%   d(1:1:(D-1)) = d(2:1:D)
-%   % Enregistrement dans le vecteur d
-%   d(D) = x;
-%   
-%   % Définir un accumulateur s
-%   s = 0;
-%   % Faire la somme de chaque élément
-%   for i = 1:1:D
-%     s = s + d(i);
-%   end
-%   % Diviser par le nombre d'éléments
-%   y = s / D;
+plot(t,ys,'r');
+xlabel('Temps (s)')
+ylabel('Signal (V)')
+figure(2);
+plot(t,xs,'b');
